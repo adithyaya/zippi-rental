@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\CustomerDocuments\Schemas;
 
+use App\Models\User;
 use Filament\Forms\Components\DateTimePicker;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
@@ -14,9 +15,11 @@ class CustomerDocumentForm
     {
         return $schema
             ->components([
-                TextInput::make('user_id')
-                    ->required()
-                    ->numeric(),
+                Select::make('user_id')
+                    ->label('User')
+                    ->options(User::pluck('name', 'id'))
+                    ->searchable()
+                    ->required(),
                 Select::make('document_type')
                     ->options([
             'aadhaar' => 'Aadhaar',
