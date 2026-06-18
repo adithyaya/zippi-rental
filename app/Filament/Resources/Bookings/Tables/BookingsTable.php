@@ -41,10 +41,10 @@ class BookingsTable
                     ->numeric()
                     ->sortable(),
                 TextColumn::make('total_amount')
-                    ->numeric()
+                    ->money('INR')
                     ->sortable(),
                 TextColumn::make('security_deposit')
-                    ->numeric()
+                    ->money('INR')
                     ->sortable(),
                 TextColumn::make('status')
                     ->badge(),

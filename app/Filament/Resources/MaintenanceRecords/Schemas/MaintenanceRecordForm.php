@@ -27,7 +27,7 @@ class MaintenanceRecordForm
                     ->required()
                     ->numeric()
                     ->default(0.0)
-                    ->prefix('$'),
+                    ->prefix('₹'),
                 TextInput::make('odometer_reading')
                     ->numeric(),
                     Select::make('status')

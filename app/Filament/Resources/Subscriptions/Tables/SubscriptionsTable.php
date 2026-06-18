@@ -20,7 +20,7 @@ class SubscriptionsTable
                 TextColumn::make('name')
                     ->searchable(),
                 TextColumn::make('price')
-                    ->money()
+                    ->money('INR')
                     ->sortable(),
                 TextColumn::make('start_date')
                     ->date()

@@ -19,7 +19,8 @@ class PaymentForm
                 TextInput::make('transaction_id'),
                 TextInput::make('amount')
                     ->required()
-                    ->numeric(),
+                    ->numeric()
+                    ->prefix('₹'),
                 Select::make('payment_method')
                     ->options(['cash' => 'Cash', 'upi' => 'Upi', 'card' => 'Card', 'wallet' => 'Wallet'])
                     ->required(),

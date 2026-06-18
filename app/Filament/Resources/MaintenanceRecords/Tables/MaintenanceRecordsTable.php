@@ -23,7 +23,7 @@ class MaintenanceRecordsTable
                     ->date()
                     ->sortable(),
                 TextColumn::make('cost')
-                    ->money()
+                    ->money('INR')
                     ->sortable(),
                 TextColumn::make('odometer_reading')
                     ->numeric()

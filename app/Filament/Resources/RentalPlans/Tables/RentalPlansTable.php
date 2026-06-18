@@ -23,16 +23,16 @@ class RentalPlansTable
                     ->numeric()
                     ->sortable(),
                 TextColumn::make('price')
-                    ->money()
+                    ->money('INR')
                     ->sortable(),
                 TextColumn::make('security_deposit')
-                    ->numeric()
+                    ->money('INR')
                     ->sortable(),
                 TextColumn::make('included_km')
                     ->numeric()
                     ->sortable(),
                 TextColumn::make('extra_km_charge')
-                    ->numeric()
+                    ->money('INR')
                     ->sortable(),
                 IconColumn::make('is_active')
                     ->boolean(),

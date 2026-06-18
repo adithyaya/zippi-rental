@@ -25,17 +25,19 @@ class RentalPlanForm
                 TextInput::make('price')
                     ->required()
                     ->numeric()
-                    ->prefix('$'),
+                    ->prefix('₹'),
                 TextInput::make('security_deposit')
                     ->required()
                     ->numeric()
-                    ->default(0.0),
+                    ->default(0.0)
+                    ->prefix('₹'),
                 TextInput::make('included_km')
                     ->numeric(),
                 TextInput::make('extra_km_charge')
                     ->required()
                     ->numeric()
-                    ->default(0.0),
+                    ->default(0.0)
+                    ->prefix('₹'),
                 Toggle::make('is_active')
                     ->required(),
                 Textarea::make('description')

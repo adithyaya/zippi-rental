@@ -20,7 +20,7 @@ class PaymentsTable
                 TextColumn::make('transaction_id')
                     ->searchable(),
                 TextColumn::make('amount')
-                    ->numeric()
+                    ->money('INR')
                     ->sortable(),
                 TextColumn::make('payment_method')
                     ->badge(),

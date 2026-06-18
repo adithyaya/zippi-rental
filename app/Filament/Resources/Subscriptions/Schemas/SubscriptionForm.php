@@ -21,7 +21,7 @@ class SubscriptionForm
                 TextInput::make('price')
                     ->required()
                     ->numeric()
-                    ->prefix('$'),
+                    ->prefix('₹'),
                 DatePicker::make('start_date')
                     ->required(),
                 DatePicker::make('end_date')

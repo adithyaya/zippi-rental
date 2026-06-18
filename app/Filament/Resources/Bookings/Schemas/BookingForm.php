@@ -69,10 +69,12 @@ class BookingForm
                     ->numeric(),
                 TextInput::make('total_amount')
                     ->numeric()
+                    ->prefix('₹')
                     ->disabled()
                     ->dehydrated(false),
                 TextInput::make('security_deposit')
                     ->numeric()
+                    ->prefix('₹')
                     ->disabled()
                     ->dehydrated(false),
                 Select::make('status')
@@ -97,14 +99,17 @@ TextInput::make('extra_km')
 
 TextInput::make('extra_km_fee')
     ->numeric()
+    ->prefix('₹')
     ->disabled(),
 
 TextInput::make('final_amount')
     ->numeric()
+    ->prefix('₹')
     ->disabled(),
 
 TextInput::make('refundable_deposit')
     ->numeric()
+    ->prefix('₹')
     ->disabled(),
             ]);
     }

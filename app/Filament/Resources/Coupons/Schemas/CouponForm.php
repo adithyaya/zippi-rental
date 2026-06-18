@@ -25,7 +25,8 @@ class CouponForm
                 TextInput::make('minimum_booking_amount')
                     ->required()
                     ->numeric()
-                    ->default(0.0),
+                    ->default(0.0)
+                    ->prefix('₹'),
                 DatePicker::make('valid_from')
                     ->required(),
                 DatePicker::make('valid_until')
