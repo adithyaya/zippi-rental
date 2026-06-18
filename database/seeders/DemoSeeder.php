@@ -134,7 +134,7 @@ class DemoSeeder extends Seeder
                 'updated_at'       => $now->copy()->subDays(1),
             ]);
             DB::table('payments')->insert([
-                ['booking_id' => $booking1Id, 'payment_reference' => 'PAY-2026-0001', 'amount' => 600,  'payment_method' => 'upi',  'payment_type' => 'rental',  'status' => 'paid', 'created_at' => $now->copy()->subDays(2), 'updated_at' => $now->copy()->subDays(2)],
+                ['booking_id' => $booking1Id, 'payment_reference' => 'PAY-2026-0001', 'amount' => 600,  'payment_method' => 'upi',  'payment_type' => 'rental',  'status' => 'success',  'created_at' => $now->copy()->subDays(2), 'updated_at' => $now->copy()->subDays(2)],
                 ['booking_id' => $booking1Id, 'payment_reference' => 'PAY-2026-0002', 'amount' => 1500, 'payment_method' => 'cash', 'payment_type' => 'deposit', 'status' => 'refunded', 'created_at' => $now->copy()->subDays(2), 'updated_at' => $now->copy()->subDays(1)],
             ]);
         }
@@ -159,7 +159,7 @@ class DemoSeeder extends Seeder
                 'updated_at'       => $now->copy()->subHours(2),
             ]);
             DB::table('payments')->insert([
-                ['booking_id' => $booking2Id, 'payment_reference' => 'PAY-2026-0003', 'amount' => 350,  'payment_method' => 'upi',  'payment_type' => 'rental',  'status' => 'paid',    'created_at' => $now, 'updated_at' => $now],
+                ['booking_id' => $booking2Id, 'payment_reference' => 'PAY-2026-0003', 'amount' => 350,  'payment_method' => 'upi',  'payment_type' => 'rental',  'status' => 'success', 'created_at' => $now, 'updated_at' => $now],
                 ['booking_id' => $booking2Id, 'payment_reference' => 'PAY-2026-0004', 'amount' => 1000, 'payment_method' => 'cash', 'payment_type' => 'deposit', 'status' => 'pending', 'created_at' => $now, 'updated_at' => $now],
             ]);
         }
