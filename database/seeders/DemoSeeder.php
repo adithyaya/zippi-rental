@@ -91,11 +91,11 @@ class DemoSeeder extends Seeder
 
         // ── 5. RENTAL PLANS ──────────────────────────────────────────────────────
         $plans = [
-            ['name' => 'Hourly',   'duration_type' => 'hour',  'duration_value' => 1,  'price' => 80,    'security_deposit' => 500,  'included_km' => 15,   'extra_km_charge' => 5, 'is_active' => true, 'description' => 'Perfect for quick errands'],
-            ['name' => 'Half Day', 'duration_type' => 'hour',  'duration_value' => 6,  'price' => 350,   'security_deposit' => 1000, 'included_km' => 60,   'extra_km_charge' => 5, 'is_active' => true, 'description' => 'Great for half day outings'],
-            ['name' => 'Full Day', 'duration_type' => 'day',   'duration_value' => 1,  'price' => 600,   'security_deposit' => 1500, 'included_km' => 120,  'extra_km_charge' => 5, 'is_active' => true, 'description' => 'Explore the city all day'],
-            ['name' => 'Weekly',   'duration_type' => 'day',   'duration_value' => 7,  'price' => 3500,  'security_deposit' => 3000, 'included_km' => 700,  'extra_km_charge' => 4, 'is_active' => true, 'description' => 'Best value for week-long travel'],
-            ['name' => 'Monthly',  'duration_type' => 'day',   'duration_value' => 30, 'price' => 12000, 'security_deposit' => 5000, 'included_km' => 2000, 'extra_km_charge' => 3, 'is_active' => true, 'description' => 'Monthly commuter plan'],
+            ['name' => 'Hourly',   'duration_type' => 'hourly',   'duration_value' => 1,  'price' => 80,    'security_deposit' => 500,  'included_km' => 15,   'extra_km_charge' => 5, 'is_active' => true, 'description' => 'Perfect for quick errands'],
+            ['name' => 'Half Day', 'duration_type' => 'hourly',   'duration_value' => 6,  'price' => 350,   'security_deposit' => 1000, 'included_km' => 60,   'extra_km_charge' => 5, 'is_active' => true, 'description' => 'Great for half day outings'],
+            ['name' => 'Full Day', 'duration_type' => 'daily',    'duration_value' => 1,  'price' => 600,   'security_deposit' => 1500, 'included_km' => 120,  'extra_km_charge' => 5, 'is_active' => true, 'description' => 'Explore the city all day'],
+            ['name' => 'Weekly',   'duration_type' => 'weekly',   'duration_value' => 7,  'price' => 3500,  'security_deposit' => 3000, 'included_km' => 700,  'extra_km_charge' => 4, 'is_active' => true, 'description' => 'Best value for week-long travel'],
+            ['name' => 'Monthly',  'duration_type' => 'monthly',  'duration_value' => 30, 'price' => 12000, 'security_deposit' => 5000, 'included_km' => 2000, 'extra_km_charge' => 3, 'is_active' => true, 'description' => 'Monthly commuter plan'],
         ];
 
         foreach ($plans as $p) {
