@@ -217,9 +217,9 @@ class DemoSeeder extends Seeder
 
         // ── 8. COUPONS ───────────────────────────────────────────────────────────
         $coupons = [
-            ['code' => 'ZIPPI10',   'discount_type' => 'percentage', 'discount_value' => 10,  'minimum_booking_amount' => 200,  'maximum_discount' => 100,  'usage_limit' => 100, 'per_user_limit' => 1, 'valid_from' => now(),            'valid_until' => now()->addMonths(3), 'is_active' => true],
-            ['code' => 'FLAT100',   'discount_type' => 'fixed',      'discount_value' => 100, 'minimum_booking_amount' => 500,  'maximum_discount' => 100,  'usage_limit' => 50,  'per_user_limit' => 1, 'valid_from' => now(),            'valid_until' => now()->addMonth(),  'is_active' => true],
-            ['code' => 'WELCOME20', 'discount_type' => 'percentage', 'discount_value' => 20,  'minimum_booking_amount' => 300,  'maximum_discount' => 200,  'usage_limit' => 200, 'per_user_limit' => 1, 'valid_from' => now()->subMonth(), 'valid_until' => now()->addMonths(6), 'is_active' => true],
+            ['code' => 'ZIPPI10',   'discount_type' => 'percentage', 'discount_value' => 10,  'minimum_booking_amount' => 200, 'usage_limit' => 100, 'valid_from' => now(),            'valid_until' => now()->addMonths(3), 'is_active' => true],
+            ['code' => 'FLAT100',   'discount_type' => 'fixed',      'discount_value' => 100, 'minimum_booking_amount' => 500, 'usage_limit' => 50,  'valid_from' => now(),            'valid_until' => now()->addMonth(),  'is_active' => true],
+            ['code' => 'WELCOME20', 'discount_type' => 'percentage', 'discount_value' => 20,  'minimum_booking_amount' => 300, 'usage_limit' => 200, 'valid_from' => now()->subMonth(), 'valid_until' => now()->addMonths(6), 'is_active' => true],
         ];
 
         foreach ($coupons as $c) {
@@ -228,34 +228,24 @@ class DemoSeeder extends Seeder
 
         // ── 9. SUBSCRIPTIONS ─────────────────────────────────────────────────────
         Subscription::firstOrCreate(
-            ['user_id' => $userIds['priya@demo.com'], 'plan_type' => 'monthly'],
+            ['user_id' => $userIds['priya@demo.com'], 'name' => 'Monthly Commuter'],
             [
                 'name'                => 'Monthly Commuter',
-                'plan_type'           => 'monthly',
                 'price'               => 1999,
                 'start_date'          => now()->startOfMonth(),
                 'end_date'            => now()->endOfMonth(),
                 'status'              => 'active',
-                'rides_included'      => 30,
-                'free_minutes'        => 60,
-                'discount_percentage' => 10,
-                'auto_renew'          => true,
             ]
         );
 
         Subscription::firstOrCreate(
-            ['user_id' => $userIds['sneha@demo.com'], 'plan_type' => 'weekly'],
+            ['user_id' => $userIds['sneha@demo.com'], 'name' => 'Weekend Explorer'],
             [
                 'name'                => 'Weekend Explorer',
-                'plan_type'           => 'weekly',
                 'price'               => 599,
                 'start_date'          => now()->startOfWeek(),
                 'end_date'            => now()->endOfWeek(),
                 'status'              => 'active',
-                'rides_included'      => 8,
-                'free_minutes'        => 30,
-                'discount_percentage' => 5,
-                'auto_renew'          => false,
             ]
         );
 
