@@ -188,7 +188,7 @@ public function damageReports()
     static::created(function ($booking) {
         if ($booking->bike) {
             $booking->bike->update([
-                'status' => 'booked',
+                'status' => $booking->bikeStatusForBookingStatus(),
             ]);
         }
 
@@ -217,13 +217,22 @@ $booking->payments()->create([
     }
 
     if ($booking->status === 'active') {
-        $booking->bike->update(['status' => 'rented']);
+        $booking->bike->update(['status' => $booking->bikeStatusForBookingStatus()]);
     }
 
      if (in_array($booking->status, ['completed', 'cancelled'])) {
-            $booking->bike->update(['status' => 'available']);
+            $booking->bike->update(['status' => $booking->bikeStatusForBookingStatus()]);
         }
     });
+}
+
+private function bikeStatusForBookingStatus(): string
+{
+    return match ($this->status) {
+        'active' => 'rented',
+        'completed', 'cancelled' => 'available',
+        default => 'booked',
+    };
 }
 
 }

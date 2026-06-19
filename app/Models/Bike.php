@@ -32,4 +32,12 @@ public function bookings()
 {
     return $this->hasMany(Booking::class);
 }
+
+public function scopeAvailableForBooking($query)
+{
+    return $query
+        ->where('status', 'available')
+        ->whereDoesntHave('bookings', fn ($bookingQuery) => $bookingQuery
+            ->whereIn('status', ['pending', 'confirmed', 'active']));
+}
 }

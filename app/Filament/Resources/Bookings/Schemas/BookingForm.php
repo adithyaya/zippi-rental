@@ -57,7 +57,7 @@ class BookingForm
         'bike_code',
         fn ($query, $record) => $record
             ? $query
-            : $query->where('status', 'available')
+            : $query->availableForBooking()
     )
     ->getOptionLabelFromRecordUsing(fn ($record) => $record->bike_code)
     ->searchable()
