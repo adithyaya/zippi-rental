@@ -92,12 +92,20 @@ public function damageReports()
         }
 
         if (! $booking->exists) {
+    $bike = Bike::find($booking->bike_id);
+
+    if ($bike && $bike->status !== 'available') {
+        throw \Illuminate\Validation\ValidationException::withMessages([
+            'bike_id' => 'This bike is not available for a new booking.',
+        ]);
+    }
+
     $bikeAlreadyBooked = self::where('bike_id', $booking->bike_id)
         ->whereIn('status', ['pending', 'confirmed', 'active'])
         ->exists();
 
     if ($bikeAlreadyBooked) {
-        throw \Filament\Support\Exceptions\Halt::make([
+        throw \Illuminate\Validation\ValidationException::withMessages([
             'bike_id' => 'This bike is already booked or rented.',
         ]);
     }

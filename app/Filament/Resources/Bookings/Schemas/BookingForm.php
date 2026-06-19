@@ -2,6 +2,8 @@
 
 namespace App\Filament\Resources\Bookings\Schemas;
 
+use App\Models\Bike;
+use App\Models\Booking;
 use Filament\Forms\Components\DateTimePicker;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
@@ -37,7 +39,7 @@ class BookingForm
     ->rules([
         function () {
             return function (string $attribute, $value, \Closure $fail) {
-                $hasActiveBooking = \App\Models\Booking::where('customer_id', $value)
+                $hasActiveBooking = Booking::where('customer_id', $value)
                     ->whereIn('status', ['pending', 'confirmed', 'active'])
                     ->exists();
 
@@ -61,13 +63,37 @@ class BookingForm
     ->searchable()
     ->preload()
     ->required()
+    ->rules([
+        function () {
+            return function (string $attribute, $value, \Closure $fail) {
+                $bike = Bike::find($value);
+
+                if (! $bike) {
+                    return;
+                }
+
+                if ($bike->status !== 'available') {
+                    $fail('This bike is not available for a new booking.');
+                }
+
+                $hasActiveBooking = Booking::where('bike_id', $value)
+                    ->whereIn('status', ['pending', 'confirmed', 'active'])
+                    ->exists();
+
+                if ($hasActiveBooking) {
+                    $fail('This bike is already booked or rented.');
+                }
+            };
+        },
+    ])
     ->helperText('Only available bikes can be selected for new bookings. Existing bookings show their assigned bike.'),
 
     Select::make('rental_plan_id')
     ->relationship('rentalPlan', 'name')
     ->required(),
                 TextInput::make('booking_number')
-                    ->required(),
+                    ->required()
+                    ->unique(ignoreRecord: true),
                 DateTimePicker::make('start_time')
                     ->required(),
                 DateTimePicker::make('expected_end_time')
