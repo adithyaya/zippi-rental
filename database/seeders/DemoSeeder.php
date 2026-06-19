@@ -6,11 +6,11 @@ use App\Models\Bike;
 use App\Models\BikeModel;
 use App\Models\Booking;
 use App\Models\Coupon;
+use App\Models\Customer;
 use App\Models\CustomerDocument;
 use App\Models\MaintenanceRecord;
 use App\Models\RentalPlan;
 use App\Models\Subscription;
-use App\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
@@ -26,14 +26,13 @@ class DemoSeeder extends Seeder
             ['name' => 'Sneha Patel',  'email' => 'sneha@demo.com'],
         ];
 
-        $userIds = [];
+        $customerIds = [];
         foreach ($customers as $c) {
-            $user = User::firstOrCreate(['email' => $c['email']], [
-                'name'              => $c['name'],
-                'password'          => bcrypt('Demo@1234'),
-                'email_verified_at' => now(),
+            $customer = Customer::firstOrCreate(['email' => $c['email']], [
+                'name' => $c['name'],
+                'status' => 'active',
             ]);
-            $userIds[$c['email']] = $user->id;
+            $customerIds[$c['email']] = $customer->id;
         }
 
         // ── 2. KYC DOCUMENTS (approved for all customers) ────────────────────────
@@ -46,7 +45,7 @@ class DemoSeeder extends Seeder
 
         foreach ($docs as $d) {
             CustomerDocument::firstOrCreate(
-                ['user_id' => $userIds[$d['email']], 'document_type' => $d['type']],
+                ['customer_id' => $customerIds[$d['email']], 'document_type' => $d['type']],
                 [
                     'document_number'     => $d['number'],
                     'document_file'       => 'kyc/' . $d['number'] . '.pdf',
@@ -112,7 +111,7 @@ class DemoSeeder extends Seeder
         // Completed booking — Ravi, ATH-001, Full Day (2 days ago)
         if (!Booking::where('booking_number', 'BK-2026-0001')->exists()) {
             $booking1Id = DB::table('bookings')->insertGetId([
-                'user_id'          => $userIds['ravi@demo.com'],
+                'customer_id'      => $customerIds['ravi@demo.com'],
                 'bike_id'          => $ath001,
                 'rental_plan_id'   => $fullDayPlanId,
                 'booking_number'   => 'BK-2026-0001',
@@ -142,7 +141,7 @@ class DemoSeeder extends Seeder
         // Active booking — Priya, OLA-001, Half Day (started today)
         if (!Booking::where('booking_number', 'BK-2026-0002')->exists()) {
             $booking2Id = DB::table('bookings')->insertGetId([
-                'user_id'          => $userIds['priya@demo.com'],
+                'customer_id'      => $customerIds['priya@demo.com'],
                 'bike_id'          => $ola001,
                 'rental_plan_id'   => $halfDayPlanId,
                 'booking_number'   => 'BK-2026-0002',
@@ -167,7 +166,7 @@ class DemoSeeder extends Seeder
         // Pending booking — Arjun, ATH-002, Weekly (starts tomorrow)
         if (!Booking::where('booking_number', 'BK-2026-0003')->exists()) {
             $booking3Id = DB::table('bookings')->insertGetId([
-                'user_id'          => $userIds['arjun@demo.com'],
+                'customer_id'      => $customerIds['arjun@demo.com'],
                 'bike_id'          => $ath002,
                 'rental_plan_id'   => $weeklyPlanId,
                 'booking_number'   => 'BK-2026-0003',
@@ -228,7 +227,7 @@ class DemoSeeder extends Seeder
 
         // ── 9. SUBSCRIPTIONS ─────────────────────────────────────────────────────
         Subscription::firstOrCreate(
-            ['user_id' => $userIds['priya@demo.com'], 'name' => 'Monthly Commuter'],
+            ['customer_id' => $customerIds['priya@demo.com'], 'name' => 'Monthly Commuter'],
             [
                 'name'                => 'Monthly Commuter',
                 'price'               => 1999,
@@ -239,7 +238,7 @@ class DemoSeeder extends Seeder
         );
 
         Subscription::firstOrCreate(
-            ['user_id' => $userIds['sneha@demo.com'], 'name' => 'Weekend Explorer'],
+            ['customer_id' => $customerIds['sneha@demo.com'], 'name' => 'Weekend Explorer'],
             [
                 'name'                => 'Weekend Explorer',
                 'price'               => 599,

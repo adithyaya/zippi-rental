@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Filament\Resources\CustomerDocuments\Tables;
+namespace App\Filament\Resources\Customers\Tables;
 
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
@@ -8,27 +8,25 @@ use Filament\Actions\EditAction;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 
-class CustomerDocumentsTable
+class CustomersTable
 {
     public static function configure(Table $table): Table
     {
         return $table
             ->columns([
-                TextColumn::make('customer.name')
-                    ->label('Customer')
+                TextColumn::make('name')
                     ->searchable()
                     ->sortable(),
-                TextColumn::make('document_type')
-                    ->badge(),
-                TextColumn::make('document_number')
+                TextColumn::make('phone')
                     ->searchable(),
-                TextColumn::make('document_file')
-                    ->searchable(),
-                TextColumn::make('verification_status')
+                TextColumn::make('email')
+                    ->searchable()
+                    ->toggleable(),
+                TextColumn::make('status')
                     ->badge(),
-                TextColumn::make('verified_at')
-                    ->dateTime()
-                    ->sortable(),
+                TextColumn::make('customerDocuments.verification_status')
+                    ->label('KYC')
+                    ->badge(),
                 TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()

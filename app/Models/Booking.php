@@ -10,7 +10,7 @@ class Booking extends Model
 {
     // Booking.php
     protected $fillable = [
-        'user_id',
+        'customer_id',
         'bike_id',
         'rental_plan_id',
         'booking_number',
@@ -34,9 +34,9 @@ class Booking extends Model
 'refundable_deposit',
     ];
 
-    public function user()
+    public function customer()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(Customer::class);
     }
 
     public function bike()
@@ -64,24 +64,24 @@ public function damageReports()
     static::saving(function ($booking) {
 
     if (! $booking->exists) {
-    $user = User::find($booking->user_id);
+    $customer = Customer::find($booking->customer_id);
 
-    if (! $user || ! $user->hasApprovedKyc()) {
+    if (! $customer || ! $customer->hasApprovedKyc()) {
         throw \Illuminate\Validation\ValidationException::withMessages([
-            'user_id' => 'This customer cannot book until KYC is approved.',
+            'customer_id' => 'This customer cannot book until KYC is approved.',
         ]);
     }
 }
 
 
     if (! $booking->exists) {
-    $userAlreadyHasActiveBooking = self::where('user_id', $booking->user_id)
+    $customerAlreadyHasActiveBooking = self::where('customer_id', $booking->customer_id)
         ->whereIn('status', ['pending', 'confirmed', 'active'])
         ->exists();
 
-    if ($userAlreadyHasActiveBooking) {
+    if ($customerAlreadyHasActiveBooking) {
         throw \Illuminate\Validation\ValidationException::withMessages([
-    'user_id' => 'This customer already has an active booking.',
+    'customer_id' => 'This customer already has an active booking.',
 ]);
     }
 }

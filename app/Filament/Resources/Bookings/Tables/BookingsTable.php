@@ -14,9 +14,13 @@ class BookingsTable
     {
         return $table
             ->columns([
-                TextColumn::make('user_id')
-                    ->numeric()
+                TextColumn::make('customer.name')
+                    ->label('Customer')
+                    ->searchable()
                     ->sortable(),
+                TextColumn::make('customer.phone')
+                    ->label('Phone')
+                    ->searchable(),
                 TextColumn::make('bike_id')
                     ->numeric()
                     ->sortable(),

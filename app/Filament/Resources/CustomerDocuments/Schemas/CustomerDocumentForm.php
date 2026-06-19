@@ -2,7 +2,6 @@
 
 namespace App\Filament\Resources\CustomerDocuments\Schemas;
 
-use App\Models\User;
 use Filament\Forms\Components\DateTimePicker;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
@@ -15,10 +14,22 @@ class CustomerDocumentForm
     {
         return $schema
             ->components([
-                Select::make('user_id')
-                    ->label('User')
-                    ->options(User::pluck('name', 'id'))
-                    ->searchable()
+                Select::make('customer_id')
+                    ->label('Customer')
+                    ->relationship('customer', 'name')
+                    ->getOptionLabelFromRecordUsing(fn ($record) => trim($record->name . ($record->phone ? ' - ' . $record->phone : '')))
+                    ->searchable(['name', 'phone'])
+                    ->preload()
+                    ->createOptionForm([
+                        TextInput::make('name')
+                            ->required()
+                            ->maxLength(255),
+                        TextInput::make('phone')
+                            ->tel()
+                            ->maxLength(255),
+                        Textarea::make('address')
+                            ->columnSpanFull(),
+                    ])
                     ->required(),
                 Select::make('document_type')
                     ->options([

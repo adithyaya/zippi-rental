@@ -13,9 +13,13 @@ class SubscriptionForm
     {
         return $schema
             ->components([
-                TextInput::make('user_id')
-                    ->required()
-                    ->numeric(),
+                Select::make('customer_id')
+                    ->label('Customer')
+                    ->relationship('customer', 'name')
+                    ->getOptionLabelFromRecordUsing(fn ($record) => trim($record->name . ($record->phone ? ' - ' . $record->phone : '')))
+                    ->searchable(['name', 'phone'])
+                    ->preload()
+                    ->required(),
                 TextInput::make('name')
                     ->required(),
                 TextInput::make('price')

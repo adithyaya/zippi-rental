@@ -36,16 +36,4 @@ class User extends Authenticatable implements FilamentUser
             'password' => 'hashed',
         ];
     }
-
-    public function customerDocuments()
-{
-    return $this->hasMany(CustomerDocument::class);
-}
-
-public function hasApprovedKyc(): bool
-{
-    return $this->customerDocuments()
-        ->where('verification_status', 'approved')
-        ->exists();
-}
 }

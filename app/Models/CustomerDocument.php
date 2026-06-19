@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class CustomerDocument extends Model
 {
     protected $fillable = [
-        'user_id',
+        'customer_id',
         'document_type',
         'document_number',
         'document_file',
@@ -16,8 +16,8 @@ class CustomerDocument extends Model
         'verified_at',
     ];
 
-    public function user()
+    public function customer()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(Customer::class);
     }
 }

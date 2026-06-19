@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Subscription extends Model
 {
     protected $fillable = [
-        'user_id',
+        'customer_id',
         'name',
         'price',
         'start_date',
@@ -15,8 +15,8 @@ class Subscription extends Model
         'status',
     ];
 
-    public function user()
+    public function customer()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(Customer::class);
     }
 }

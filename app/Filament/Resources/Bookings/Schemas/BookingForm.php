@@ -3,12 +3,10 @@
 namespace App\Filament\Resources\Bookings\Schemas;
 
 use Filament\Forms\Components\DateTimePicker;
-use Filament\Schemas\Components\Utilities\Get;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Textarea;
 use Filament\Schemas\Schema;
-use Illuminate\Validation\Rule;
 
 class BookingForm
 {
@@ -16,13 +14,30 @@ class BookingForm
     {
         return $schema
             ->components([
-                Select::make('user_id')
-    ->relationship('user', 'name')
+                Select::make('customer_id')
+    ->label('Customer')
+    ->relationship('customer', 'name')
+    ->getOptionLabelFromRecordUsing(fn ($record) => trim($record->name . ($record->phone ? ' - ' . $record->phone : '')))
+    ->searchable(['name', 'phone'])
+    ->preload()
     ->required()
+    ->createOptionForm([
+        TextInput::make('name')
+            ->required()
+            ->maxLength(255),
+        TextInput::make('phone')
+            ->tel()
+            ->maxLength(255),
+        TextInput::make('alternate_phone')
+            ->tel()
+            ->maxLength(255),
+        Textarea::make('address')
+            ->columnSpanFull(),
+    ])
     ->rules([
         function () {
             return function (string $attribute, $value, \Closure $fail) {
-                $hasActiveBooking = \App\Models\Booking::where('user_id', $value)
+                $hasActiveBooking = \App\Models\Booking::where('customer_id', $value)
                     ->whereIn('status', ['pending', 'confirmed', 'active'])
                     ->exists();
 
